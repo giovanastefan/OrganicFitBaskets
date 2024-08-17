@@ -16,13 +16,12 @@
   flex-direction: column;
 }
 
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px0;
-  font-size: 14px;
-  text-align: center;
+.message {
+  background-color: #e0f7fa;
+  border: 1px solid #b2ebf2; 
+  border-radius: 8px; 
+  padding: 16px; 
+  color: #006064; 
+  max-width: 100%;
 }
+
