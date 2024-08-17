@@ -1,8 +1,8 @@
 import './ProductCard.css'
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onClick }) => {
   return (
-    <div className="card-container">
+    <div className="card-container" onClick={() => onClick(product)}>
       <img src={product.imageUrl} alt={product.name} />
 
       <div className="card-details">

@@ -1,6 +1,9 @@
+import React, { useState } from "react";
 import ProductCard from "../../components/productCard/ProductCard";
 
-import './Home.css'
+import "./Home.css";
+import ProductCardModal from "../../components/productCardModal/ProductCardModal";
+import { ProductsList } from "../../components/ProductList/ProductsList";
 
 export const Home = () => {
   const products = [
@@ -61,5 +64,9 @@ export const Home = () => {
     },
   ];
 
-  return <div className="home-container">{products.map((product) => (<ProductCard product={product} />))}</div>;
+  return (
+    <div className="home-container">
+      <ProductsList products={products} />
+    </div>
+  );
 };

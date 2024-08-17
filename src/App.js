@@ -6,6 +6,7 @@ import { Login } from "./pages/login/Login";
 import { Shop } from "./pages/shop/Shop";
 import { Cart } from "./pages/cart/Cart";
 
+import'./firebaseConfig';
 import "./App.css";
 
 function App() {
