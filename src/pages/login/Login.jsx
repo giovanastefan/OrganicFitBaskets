@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import {useNavigate, NavLink } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import { Input } from "../../components/input/Input";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -8,6 +8,7 @@ import { auth } from "../../firebaseConfig";
 import "./Login.css";
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,7 +17,7 @@ export const Login = () => {
     setError("");
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log("User logged in successfully");
+      navigate('/');
     } catch (err) {
       setError("Failed to log in. Please check your credentials.");
     }
@@ -26,9 +27,11 @@ export const Login = () => {
     <div>
       <div className="login-container">
         <div className="login-content">
-          {error && <div className="error-message">
-            <p>{error}</p>
-          </div>}
+          {error && (
+            <div className="error-message">
+              <p>{error}</p>
+            </div>
+          )}
           <h1>Sign In</h1>
           <div className="input-container">
             <Input

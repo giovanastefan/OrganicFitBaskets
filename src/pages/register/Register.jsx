@@ -60,7 +60,7 @@ export const Register = () => {
           </div>
         </div>
         <Button onClickButton={handleRegister}>Create Account</Button>
-        <NavLink to="/register"> Already have account? Login</NavLink>
+        <NavLink to="/login"> Already have account? Login</NavLink>
       </div>
     </div>
   );

@@ -1,0 +1,27 @@
+.account-container {
+  display: flex;
+  justify-content: center;
+}
+
+.account-content {
+  margin: 1rem;
+  padding: 1rem 0 1rem 0;
+  border: 1px solid rgba(0, 0, 0, 0.185);
+  border-radius: 0.5rem;
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-title {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+  width: 100%;
+  align-items: center;
+}
+
+.account-title h2 {
+  margin-left: 1rem;
+}

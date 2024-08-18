@@ -1,12 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../button/Button";
+import { useAuth } from "../../context/auth/Auth";
+
 import "./Menu.css";
 
 export const Menu = () => {
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
-  
+
   const handleClick = (location) => {
     navigate(location);
+  };
+
+  console.log("Tetse", currentUser);
+
+  const renderProfile = () => {
+    console.log('teste')
+    return currentUser ? (
+      <img src="../../../images/Profile.png" alt="Profile" onClick={() => handleClick("/profile")}/>
+    ) : (
+      <Button onClick={() => handleClick("/login")}>Login or Sign Up</Button>
+    );
   };
 
   return (
@@ -27,16 +41,16 @@ export const Menu = () => {
             <span>Shopping Cart</span>
             <span>$57.00</span>
           </div>
-          <Button onClick={() => handleClick('/login')}>Login or Sign Up</Button>
+          {renderProfile()}
         </div>
       </div>
       <div className="menu-secondary">
         <ul>
           <li>
-            <p onClick={() => handleClick('/')}>Home</p>
+            <p onClick={() => handleClick("/")}>Home</p>
           </li>
           <li>
-            <p>Shop</p>
+            <p onClick={() => handleClick("/shop")}>Shop</p>
           </li>
           <li>
             <p>About Us</p>

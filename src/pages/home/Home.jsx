@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import ProductCard from "../../components/productCard/ProductCard";
-
+import React from "react";
 import "./Home.css";
-import ProductCardModal from "../../components/productCardModal/ProductCardModal";
 import { ProductsList } from "../../components/ProductList/ProductsList";
 
 export const Home = () => {
