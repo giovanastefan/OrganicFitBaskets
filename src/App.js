@@ -6,6 +6,7 @@ import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
 import { Shop } from "./pages/shop/Shop";
 import { Cart } from "./pages/cart/Cart";
+import { Footer } from "./components/footer/Footer";
 
 import'./firebaseConfig';
 import "./App.css";
@@ -21,7 +22,9 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
+      <Footer />
     </Router>
+    
   );
 }
 

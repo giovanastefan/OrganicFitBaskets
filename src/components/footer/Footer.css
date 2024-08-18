@@ -1,0 +1,15 @@
+div.footer {
+    height: 150px;
+    background-color: #000000;
+    padding-left: 20px;
+
+}
+
+div.footer-container {
+    height: 150px;
+    background-color: #000000;
+    position: relative;
+    bottom: 000px;
+    color: white;
+    
+}
