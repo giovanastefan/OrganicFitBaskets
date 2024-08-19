@@ -1,19 +1,39 @@
-import { useState } from 'react';
-import { Input } from '../../components/input/Input';
-import './CreateProduct.css';
-import { Button } from '../../components/button/Button';
-import { db } from '../../firebaseConfig'; // Atualize o caminho se necessário
-import { collection, addDoc } from 'firebase/firestore';
+import { useState, useEffect } from "react";
+import { Input } from "../../components/input/Input";
+import "./CreateProduct.css";
+import { Button } from "../../components/button/Button";
+import { db } from "../../firebaseConfig";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
 export const CreateProduct = () => {
+  const [message, setMessage] = useState("");
   const [product, setProduct] = useState({
-    name: 'Batata Inglesa',
-    description: 'Deliciosa batata',
-    originalPrice: 4.99,
-    promotionalPrice: 3.99,
-    category: 'Vegetables',
-    imageUrl: '',
+    name: "",
+    description: "",
+    originalPrice: null,
+    promotionalPrice: null,
+    category: "",
+    imageUrl: "",
   });
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "categories"));
+        const categoriesList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCategories(categoriesList);
+      } catch (error) {
+        setMessage("Something is wrong, try refresh page!");
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +45,7 @@ export const CreateProduct = () => {
 
   const createProduct = async () => {
     try {
-      await addDoc(collection(db, 'products'), {
+      await addDoc(collection(db, "products"), {
         name: product.name,
         description: product.description,
         originalPrice: parseFloat(product.originalPrice),
@@ -33,14 +53,25 @@ export const CreateProduct = () => {
         category: product.category,
         imageUrl: product.imageUrl,
       });
+
+      setMessage("Product created with sucess!");
+      setProduct({
+        name: '',
+        description: '',
+        originalPrice: '',
+        promotionalPrice: '',
+        category: '',
+        imageUrl: '',
+      });
     } catch (e) {
-      console.error('Error adding document: ', e);
+      setMessage("Something is wrong, try again!");
     }
   };
 
   return (
     <div className="product-container">
       <div className="product-content">
+        {message && <p>{message}</p>}
         <h1>Create a new product</h1>
         <div className="input-content">
           <Input
@@ -84,10 +115,11 @@ export const CreateProduct = () => {
               <option value="" disabled>
                 Select
               </option>
-              <option value="Vegetables">Vegetables</option>
-              <option value="Fruits">Fruits</option>
-              <option value="Dairy">Dairy</option>
-              {/* Adicione mais opções conforme necessário */}
+              {categories.map((category) => (
+                <option key={category.id} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </div>
           <Input

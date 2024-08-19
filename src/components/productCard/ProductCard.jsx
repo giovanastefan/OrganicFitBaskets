@@ -8,7 +8,7 @@ const ProductCard = ({ product, onClick }) => {
       <div className="card-details">
         <div className="card-title">
           <p className="name">{product.name}</p>
-          <p className="price">${product.price}</p>
+          <p className="price">${product.promotionalPrice}</p>
         </div>
         
         <button className="card-cart-button">

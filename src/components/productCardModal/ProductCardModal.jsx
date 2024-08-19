@@ -7,7 +7,7 @@ const ProductCardModal = ({ product, show, onClose }) => {
     return null;
   }
 
-  const { name, description, imageUrl, price, promotionalPrice, category } =
+  const { name, description, imageUrl, originalPrice, promotionalPrice, category } =
     product;
 
   return (
@@ -20,7 +20,7 @@ const ProductCardModal = ({ product, show, onClose }) => {
             {name}
           </h1>
           <del id="modal-promotional-price" class="product-price">
-            $ {price}
+            $ {originalPrice}
           </del>
           <span id="modal-price" class="product-promotional-price">
             $ {promotionalPrice}
