@@ -12,8 +12,6 @@ export const Menu = () => {
     navigate(location);
   };
 
-  console.log("Tetse", currentUser);
-
   const renderProfile = () => {
     console.log('teste')
     return currentUser ? (

@@ -18,6 +18,7 @@ import "./App.css";
 
 import { useAuth } from "./context/auth/Auth";
 import { Profile } from "./pages/profile/Profile";
+import { CreateProduct } from "./pages/createProduct/CreateProduct";
 
 const PrivateRoute = ({ children }) => {
   const { currentUser } = useAuth();
@@ -54,6 +55,14 @@ function App() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/create-product"
+          element={
+            <PrivateRoute>
+              <CreateProduct />
             </PrivateRoute>
           }
         />

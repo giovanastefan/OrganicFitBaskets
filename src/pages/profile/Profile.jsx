@@ -1,7 +1,10 @@
 import { Button } from "../../components/button/Button";
+import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
 export const Profile = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="account-container">
       <div className="account-content">
@@ -29,7 +32,7 @@ export const Profile = () => {
           </div>
         </div>
         <div>
-          <Button>Create a new product</Button>
+          <Button onClickButton={() => navigate('/create-product')}>Create a new product</Button>
           <Button>Save Changes</Button>
         </div>
       </div>
