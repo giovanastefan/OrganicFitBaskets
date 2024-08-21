@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Button } from "../../components/button/Button";
 import { Quantity } from "../../components/quantity/Quantity";
+import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 
+
 export const Cart = () => {
+  const navigate = useNavigate();
   const [items, setItems] = useState([
     {
       id: 1,
@@ -89,7 +92,7 @@ export const Cart = () => {
             <span>Total:</span>
             <span>${calculateTotal()}</span>
           </div>
-          <Button>Proceed to checkout</Button>
+          <Button onClickButton={() => navigate('/billing-information')}>Proceed to checkout</Button>
         </div>
       </div>
     </div>

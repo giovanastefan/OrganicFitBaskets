@@ -19,6 +19,7 @@ import "./App.css";
 import { useAuth } from "./context/auth/Auth";
 import { Profile } from "./pages/profile/Profile";
 import { CreateProduct } from "./pages/createProduct/CreateProduct";
+import { BillingInformation } from "./pages/billingInformation/BillingInformation";
 
 const PrivateRoute = ({ children }) => {
   const { currentUser } = useAuth();
@@ -66,6 +67,14 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+        path="/billing-information"
+        element={
+          <PrivateRoute>
+            <BillingInformation />
+          </PrivateRoute>
+          }
+        />        
       </Routes>
       <Footer />
     </Router>
