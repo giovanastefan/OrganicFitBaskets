@@ -1,6 +1,7 @@
 .account-container {
   display: flex;
   justify-content: center;
+  padding: 12px;
 }
 
 .account-content {
@@ -157,5 +158,16 @@
   .orders-table th, .orders-table td {
     padding: 6px; 
     font-size: 0.8rem; 
+  }
+}
+
+.button-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  button {
+    margin-left: 0.5rem;
+    width: 34%;
   }
 }
