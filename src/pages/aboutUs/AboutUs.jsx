@@ -15,14 +15,14 @@ export const AboutUs = () => {
           </div>
           <div className="informations-container">
             <div className="information">
-              <img src="../../../images/plant-logo-2.png" />
+              <img src="../../../images/plant-logo-2.png" alt="Plant"/>
               <div className="info-details">
                 <h3>100% Organic food</h3>
                 <span>100% Healthy & Fresh food</span>
               </div>
             </div>
             <div className="information">
-              <img src="../../../images/bag-logo.png" />
+              <img src="../../../images/bag-logo.png" alt="Bag"/>
               <div className="info-details">
                 <h3>100% Sucure Payment</h3>
                 <span>We ensure your money is save</span>
@@ -31,14 +31,14 @@ export const AboutUs = () => {
           </div>
           <div className="informations-container">
             <div className="information">
-              <img src="../../../images/shipping-logo.png" />
+              <img src="../../../images/shipping-logo.png" alt="Shipping"/>
               <div className="info-details">
                 <h3>Free Shipping</h3>
                 <span>Free shipping with discount</span>
               </div>    
             </div>
             <div className="information">
-              <img src="../../../images/box-logo.png" />
+              <img src="../../../images/box-logo.png" alt="Box"/>
               <div className="info-details">
                 <h3>100% Organic food</h3>
                 <span>100% Healthy & Fresh food.</span>

@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../button/Button";
 import { useAuth } from "../../context/auth/Auth";
-import { onAuthStateChanged } from "firebase/auth";
 
 import "./Menu.css";
 
@@ -14,8 +13,6 @@ export const Menu = () => {
   };
 
   const renderProfile = () => {
-    console.log('teste')
-    console.log(currentUser)
     return currentUser ? (
       <img src="../../../images/Profile.png" alt="Profile" onClick={() => handleClick("/profile")}/>
     ) : (

@@ -5,7 +5,7 @@ select {
   background-color: #fff;
   cursor: pointer;
   outline: none;
-  width: 30%;
+  margin-right: 12px;
 }
 
 select:hover {
