@@ -20,6 +20,7 @@ import { useAuth } from "./context/auth/Auth";
 import { Profile } from "./pages/profile/Profile";
 import { CreateProduct } from "./pages/createProduct/CreateProduct";
 import { BillingInformation } from "./pages/billingInformation/BillingInformation";
+import { AboutUs } from "./pages/aboutUs/AboutUs";
 
 const PrivateRoute = ({ children }) => {
   const { currentUser } = useAuth();
@@ -35,6 +36,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route
           path="/shop"
           element={

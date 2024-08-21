@@ -54,7 +54,7 @@ export const Menu = () => {
             <p onClick={() => handleClick("/shop")}>Shop</p>
           </li>
           <li>
-            <p>About Us</p>
+            <p onClick={() => handleClick("/about-us")}>About Us</p>
           </li>
         </ul>
       </div>
