@@ -45,7 +45,7 @@ export const Shop = () => {
 
         if (selectedCategoryOrder) {
           products = products.filter(
-            (product) => product.categoryId === selectedCategoryOrder
+            (product) => product.category === selectedCategoryOrder
           );
         }
 
