@@ -11,7 +11,18 @@ export const Shop = () => {
   const [selectedPriceOrder, setSelectedPriceOrder] = useState("");
   const [selectedCategoryOrder, setSelectedCategoryOrder] = useState("");
   const [message, setMessage] = useState("");
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+    {
+      id: 1,
+      name: "Alface",
+      description: 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla nibh diam, blandit vel consequat nec, ultrices et ipsum. Nulla varius magna a consequat pulvinar.',
+      imageUrl:
+        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
+      price: 2.99,
+      promotionalPrice: 3.99,
+      category: "Vegetables",
+    },
+  ]);
 
   const { categories } = useInfo();
 

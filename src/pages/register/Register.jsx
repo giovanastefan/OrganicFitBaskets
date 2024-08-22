@@ -27,15 +27,15 @@ export const Register = () => {
   };
 
   return (
-    <div class="login-container">
-      <div class="login-content">
+    <div className="login-container">
+      <div className="login-content">
         {message && (
           <div className="message">
             <p>{message}</p>
           </div>
         )}
         <h1>Sign Up</h1>
-        <div class="input-container">
+        <div className="input-container">
           <Input
             type="text"
             placeholder="Name"
@@ -54,8 +54,8 @@ export const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div class="terms-container">
-            <input type="checkbox" class="terms-checkbox" id="terms" />
+          <div className="terms-container">
+            <input type="checkbox" className="terms-checkbox" id="terms" />
             <span for="terms">Accept all terms & Conditions</span>
           </div>
         </div>

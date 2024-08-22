@@ -1,4 +1,5 @@
 import { Button } from "../../components/button/Button";
+import { OrderHistory } from "../../components/orderHistory/OrderHistory"
 import { Input } from "../../components/input/Input";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
@@ -68,6 +69,7 @@ export const Profile = () => {
           <Button>Save Changes</Button>
         </div>
       </div>
+      <OrderHistory />
     </div>
   );
 };

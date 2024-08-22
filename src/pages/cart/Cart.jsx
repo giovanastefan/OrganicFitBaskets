@@ -4,7 +4,6 @@ import { Quantity } from "../../components/quantity/Quantity";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 
-
 export const Cart = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState([
@@ -27,15 +26,17 @@ export const Cart = () => {
   ]);
 
   const handleQuantityChange = (id, newQuantity) => {
-    setItems(prevItems =>
-      prevItems.map(item =>
+    setItems((prevItems) =>
+      prevItems.map((item) =>
         item.id === id ? { ...item, quantity: newQuantity } : item
       )
     );
   };
 
   const calculateTotal = () => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    return items
+      .reduce((total, item) => total + item.price * item.quantity, 0)
+      .toFixed(2);
   };
 
   const renderItems = () => {
@@ -49,16 +50,20 @@ export const Cart = () => {
         <td data-label="Quantity">
           <Quantity
             quantity={item.quantity}
-            onQuantityChange={(newQuantity) => handleQuantityChange(item.id, newQuantity)}
+            onQuantityChange={(newQuantity) =>
+              handleQuantityChange(item.id, newQuantity)
+            }
           />
         </td>
-        <td data-label="Subtotal">${(item.price * item.quantity).toFixed(2)}</td>
+        <td data-label="Subtotal">
+          ${(item.price * item.quantity).toFixed(2)}
+        </td>
       </tr>
     ));
   };
 
   return (
-    <div>
+    <div className="container">
       <h2 className="center">My Shopping Cart</h2>
       <div className="cart-page-container center">
         <div className="cart-details container-border">
@@ -74,8 +79,7 @@ export const Cart = () => {
             <tbody>{renderItems()}</tbody>
           </table>
           <div className="cart-details-footer">
-            <Button>Return to shop</Button>
-            <Button>Update Cart</Button>
+            <Button onClickButton={() => navigate("/shop")}>Return to shop</Button>
           </div>
         </div>
         <div className="cart-total container-border">
@@ -92,7 +96,9 @@ export const Cart = () => {
             <span>Total:</span>
             <span>${calculateTotal()}</span>
           </div>
-          <Button onClickButton={() => navigate('/billing-information')}>Proceed to checkout</Button>
+          <Button onClickButton={() => navigate("/billing-information")}>
+            Proceed to checkout
+          </Button>
         </div>
       </div>
     </div>

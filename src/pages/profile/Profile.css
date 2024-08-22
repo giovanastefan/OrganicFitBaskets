@@ -1,6 +1,7 @@
 .account-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 12px;
 }
 
@@ -29,44 +30,6 @@
 
 .form-row {
   display: flex;
-  width: 80%;
-  flex-direction: row;
-  align-items: left;
-}
-
-.input-content {
-  width: 60%;
-  height: 60%;
-  padding: 10px;
-  display: flex;
-  align-items: left;
-  flex-direction: column;
-
-  input {
-    border-color: rgba(0, 0, 0, 0.185);
-    border-radius: 4px;
-  }
-}
-
-.save-changes-button {
-  margin-left: 0.5rem;
-}
-
-.orders-container {
-  display: flex;
-  justify-content: center;
-}
-
-.orders-content {
-  margin: 1rem;
-  padding: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.185);
-  border-radius: 0.5rem;
-  width: 50%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
 }
 
 .account-title {
@@ -76,78 +39,48 @@
   align-items: center;
 }
 
-.orders-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.orders-table th, .orders-table td {
-  padding: 10px;
-  text-align: left;
-}
-
-.orders-table th {
-  background-color: #f2f2f2;
-}
-
 .details {
   color: green;
 }
 
 @media (max-width: 768px) {
   .account-content {
-    width: 80%; 
-    padding: 0.5rem; 
+    width: 80%;
+    padding: 0.5rem;
   }
 
   .form-row {
-    flex-direction: column; 
-    width: 100%; 
-  }
-
-  .input-content {
-    width: 100%; 
-    padding: 0.5rem; 
-  }
-
-  .input-content input {
-    width: 100%; 
+    flex-direction: column;
+    width: 100%;
   }
 
   .save-changes-button {
-    margin: 0; 
-    width: 100%; 
+    margin: 0;
+    width: 100%;
   }
 
   .orders-content {
-    width: 80%; 
+    width: 80%;
     padding: 0.5rem;
   }
 
   .orders-table table {
-    display: block; 
-    overflow-x: auto; 
-    white-space: nowrap; 
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
-  .orders-table th, .orders-table td {
-    padding: 8px; 
-    font-size: 0.9rem; 
+  .orders-table th,
+  .orders-table td {
+    padding: 8px;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .account-content {
-    width: 100%; 
-    padding: 0.5rem; 
-  }
-
-  .input-content {
-    padding: 0.3rem; 
-  }
-
-  .input-content input {
-    font-size: 0.9rem; 
+    width: 100%;
+    padding: 0.5rem;
   }
 
   .orders-content {
@@ -155,9 +88,10 @@
     padding: 0.5rem;
   }
 
-  .orders-table th, .orders-table td {
-    padding: 6px; 
-    font-size: 0.8rem; 
+  .orders-table th,
+  .orders-table td {
+    padding: 6px;
+    font-size: 0.8rem;
   }
 }
 
@@ -169,5 +103,6 @@
   button {
     margin-left: 0.5rem;
     width: 34%;
+    border-radius: 2rem;
   }
 }
