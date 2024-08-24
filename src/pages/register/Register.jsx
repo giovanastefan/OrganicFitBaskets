@@ -5,7 +5,7 @@ import { Input } from "../../components/input/Input";
 import { auth } from "../../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { db } from "../../firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 import "./Register.css";
 
@@ -43,9 +43,10 @@ export const Register = () => {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, profile.email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, profile.email, password);
+      const user = userCredential.user;
 
-      await addDoc(collection(db, "users"), {
+      await setDoc(doc(db, "users", user.uid), {
         firstName: profile.firstName,
         lastName: profile.lastName,
         email: profile.email,
@@ -60,6 +61,7 @@ export const Register = () => {
         email: "",
         phone: "",
       });
+      setPassword("");
     } catch (err) {
       setMessage(
         "Failed to create an account. Please check the information provided."

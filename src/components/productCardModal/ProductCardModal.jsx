@@ -1,3 +1,4 @@
+import { useInfo } from "../../hooks/useInfo/useInfo";
 import { Button } from "../button/Button";
 import { Quantity } from "../quantity/Quantity";
 import "./ProductCardModal.css";
@@ -5,6 +6,7 @@ import { useState } from "react";
 
 const ProductCardModal = ({ product, show, onClose }) => {
   const [productQuantity, setProductQuantity] = useState(0);
+  const { getCategoryName } = useInfo();
 
   if (!show || !product) {
     return null;
@@ -62,7 +64,7 @@ const ProductCardModal = ({ product, show, onClose }) => {
           <div className="divider"></div>
           <span>Category: </span>
           <span id="modal-category" className="product-category">
-            {category}
+            {getCategoryName(category)}
           </span>
         </div>
       </div>
