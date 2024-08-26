@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConfig";
 import "./Profile.css";
 import { useEffect, useState } from "react";
-import { signOut } from "firebase/auth";
+import { sendEmailVerification, signOut } from "firebase/auth";
 import { useAuth } from "../../context/auth/Auth";
 import { db } from "../../firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { updateEmail } from "firebase/auth";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -64,7 +65,30 @@ export const Profile = () => {
     };
 
     fetchProfile();
-  })
+  }, [currentUser]);
+
+  const updateUser = async () => {   
+
+    try {
+      await setDoc(doc(db, "users", currentUser.uid), {
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        email: profile.email,
+        phone: profile.phone,   
+        
+      });
+      
+      setMessage("User updated with sucess!");
+      setProfile({
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        email: profile.email,
+        phone: profile.phone,
+      });
+    } catch (e) {
+      setMessage("Something is wrong, try again!");
+    }
+  };
 
   return (
     <div className="account-container">
@@ -110,7 +134,7 @@ export const Profile = () => {
           <Button onClickButton={() => navigate("/create-product")}>
             Create a new product
           </Button>
-          <Button>Save Changes</Button>
+          <Button onClickButton={updateUser}>Save Changes</Button>
         </div>
       </div>
       <OrderHistory />
