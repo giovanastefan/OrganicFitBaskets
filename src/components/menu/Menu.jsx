@@ -14,7 +14,10 @@ export const Menu = () => {
 
   const renderProfile = () => {
     return currentUser ? (
-      <img src="../../../images/Profile.png" alt="Profile" onClick={() => handleClick("/profile")}/>
+      <>
+        <img src="../../../images/Profile.png" alt="Profile" onClick={() => handleClick("/profile")}/>
+        <Button onClick={() => handleClick()}>Logout</Button>
+      </>      
     ) : (
       <Button onClick={() => handleClick("/login")}>Login or Sign Up</Button>
     );

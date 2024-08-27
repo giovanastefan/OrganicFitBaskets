@@ -23,6 +23,14 @@ export const Cart = () => {
       price: 2.99,
       quantity: 10,
     },
+    {
+      id: 3,
+      name: "Green Capsicum",
+      imageUrl:
+        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
+      price: 5.99,
+      quantity: 2,
+    },
   ]);
 
   const handleQuantityChange = (id, newQuantity) => {
@@ -38,6 +46,8 @@ export const Cart = () => {
       .reduce((total, item) => total + item.price * item.quantity, 0)
       .toFixed(2);
   };
+
+  const total = calculateTotal();
 
   const renderItems = () => {
     return items.map((item) => (
@@ -96,7 +106,7 @@ export const Cart = () => {
             <span>Total:</span>
             <span>${calculateTotal()}</span>
           </div>
-          <Button onClickButton={() => navigate("/billing-information")}>
+          <Button onClickButton={() => navigate("/billing-information", { state: { items, total } })}>
             Proceed to checkout
           </Button>
         </div>

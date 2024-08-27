@@ -1,64 +1,66 @@
 .checkout-container {
-    width: 70%;
     display: flex;
+    align-items: flex-start;
     justify-content: center;
-    align-items: center;
-    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    flex: 1;
 }
 
 .billing-section {
-    width: 50%;
+    width: 45%;
     margin-right: 5%;
+
+    input {
+        padding: 10px;
+    }
 }
 
-.order-summary {
-    width: 20%;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-}
-
-.form-row {
+.form-aligned {
     display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
 }
 
-
-.form-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+.form {
+    display: flex;
+    flex-direction: column;
 }
 
-.select-input {
-    width: calc(50% - 5px);
+.country-region {
+    width: 55%;
+    margin-right: 20px;
+    margin-bottom: 10px;
 }
 
-.full-width {
-    width: 100%;
-}
-
-.textarea-input {
-    height: 100px;
-    resize: none;
-}
-
-.order-items {
-    margin-bottom: 15px;
-}
-
-.order-items p {
+#form-names,
+#email-phone {
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+    gap: 15px;
 }
 
-.order-totals p {
-    display: flex;
-    justify-content: space-between;
+#street-address {
+    margin-bottom: 10px;
+}
+
+#first-name,
+#last-name,
+#company-name,
+#form-email,
+#form-phone {
+    flex: 1;
+}
+
+.aditional-info {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+
+    textearea {
+        resize: none;
+        border-radius: 6px;
+    }
 }
 
 .payment-methods {

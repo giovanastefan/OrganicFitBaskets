@@ -74,8 +74,7 @@ export const Profile = () => {
         firstName: profile.firstName,
         lastName: profile.lastName,
         email: profile.email,
-        phone: profile.phone,   
-        
+        phone: profile.phone,        
       });
       
       setMessage("User updated with sucess!");

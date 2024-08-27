@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import { Button } from "../../components/button/Button";
 import { Input } from "../../components/input/Input";
 import "./BillingInformation.css";
+import { Cart } from "../cart/Cart.jsx";
+import { useLocation } from "react-router-dom";
+import { useAuth } from "../../context/auth/Auth";
 
 export const BillingInformation = () => {
+  const { currentUser } = useAuth();
+  const location = useLocation();
+  const items = location.state?.items || [];
+  const total = location.state?.total || "0.00";
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -19,6 +27,7 @@ export const BillingInformation = () => {
     setMessage("");
 
     const orderDetails = {
+
       firstName,
       lastName,
       companyName,
@@ -28,6 +37,8 @@ export const BillingInformation = () => {
       email,
       phone,
       paymentMethod,
+      items,
+      total,
     };
 
     try {
@@ -47,88 +58,114 @@ export const BillingInformation = () => {
           </div>
         )}
         <h2>Billing Information</h2>
-        <div className="form-row" id="names">
-          <span>First Name</span>
-          <Input
-            type="text"
-            placeholder="First name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className="form-input"
-          />
-          <span>Last Name</span>
-          <Input
-            type="text"
-            placeholder="Last name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            className="form-input"
-          />
-          <span>Company Name</span>
-          <Input
-            type="text"
-            placeholder="Company Name (optional)"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-            className="form-input"
-          />
-        </div>
-        <div className="form-row">
-          <span>Street Address</span>
-          <Input
-            type="text"
-            placeholder="Street Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            className="form-input full-width"
-          />
-        </div>
-        <div className="form-row">
-        <span>Country/Region</span>
-          <select
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-            className="form-input select-input"
-          >
-            <option value="">Select Country/Region</option>
-            {/* Add more options as needed */}
-          </select>
-          <span>State</span>
-          <select
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-            className="form-input select-input"
-          >
-            <option value="">Select State</option>
-            {/* Add more options as needed */}
-          </select>
-        </div>
-        <div className="form-row">
-            <span>E-mail</span>
-          <Input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="form-input"
-          />
-          <span>Phone</span>
-          <Input
-            type="tel"
-            placeholder="Phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className="form-input"
-          />
-        </div>
-        <h3>Additional Info</h3>
-        <div className="form-row">
-          <textarea
-            placeholder="Notes about your order, e.g. special notes for delivery"
-            className="form-input textarea-input"
-          />
+        <div className="billing-content">
+          <div className="form-aligned" id="form-names">
+            <div className="form" id="first-name">
+              <span>First Name</span>
+              <input
+                type="text"
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="form-input"
+              />
+            </div>
+            <div className="form" id="last-name">
+              <span>Last Name</span>
+              <input
+                type="text"
+                placeholder="Last name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="form-input"
+              />
+            </div>
+            <div className="form" id="company-name">
+              <span>Company Name</span>
+              <input
+                type="text"
+                placeholder="Company Name (optional)"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+                className="form-input"
+              />
+            </div>
+          </div>
+          <div className="form" id="street-address">
+            <span>Street Address</span>
+            <input
+              type="text"
+              placeholder="Street Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="form-input full-width"
+            />
+          </div>
+          <div className="form-aligned">
+            <div className="country-region">
+              <div className="form">
+                <span>Country/Region</span>
+                <select
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="form-input select-input"
+                >
+                  <option value="">Select Country/Region</option>
+                  {/* Add more options as needed */}
+                </select>
+              </div>
+            </div>
+            <div className="state">
+              <div className="form">
+                <span>State</span>
+                <select
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  className="form-input select-input"
+                >
+                  <option value="">Select State</option>
+                  {/* Add more options as needed */}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="form-aligned" id="email-phone">
+            <div className="form" id="form-email">
+              <span>E-mail</span>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="form-input"
+              />
+            </div>
+            <div className="form" id="form-phone">
+              <span>Phone</span>
+              <input
+                type="tel"
+                placeholder="Phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="form-input"
+              />
+            </div>
+          </div>
+          <div class="ship-checkbox">
+            <input type="checkbox" id="ship-different" />
+            <label for="ship-different">Ship to a different Address</label>
+          </div>
+          <h3>Additional Info</h3>
+          <div className="aditional-info">
+            <textarea
+              placeholder="Notes about your order, e.g. special notes for delivery"
+              className="form-input textarea-input"
+              rows="5"
+            />
+          </div>
         </div>
       </div>
+
       <div className="order-summary">
         <h3>Order Summary</h3>
         <div className="order-items">
