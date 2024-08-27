@@ -1,20 +1,27 @@
 import './OrderRow.css';
 
 export const OrderRow = ({ order }) => {
-  const { id, date, totalPrice, qtyProducts, status } = order;
+  const { id, date, totalPrice, items, status } = order;
 
-  const formattedDate = date.toLocaleDateString('en-GB', {
+  const qtyProducts = items.reduce((sum, item) => sum + item.quantity, 0)
+  const orderDate = date instanceof Date ? date: new Date(date);
+
+  const formattedDate = orderDate.toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
   });
+
+  const formattedTotalPrice = totalPrice 
+  ? Number(totalPrice).toFixed(2) 
+  : "0.00";
 
   return (
     <tr>
       <td>#{id}</td>
       <td>{formattedDate}</td>
       <td>
-        ${totalPrice.toFixed(2)} ({qtyProducts} products)
+        ${formattedTotalPrice} ({qtyProducts} products)
       </td>
       <td>{status}</td>
       <td className="details">View Details</td>

@@ -5,6 +5,8 @@ import "./BillingInformation.css";
 import { Cart } from "../cart/Cart.jsx";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../../context/auth/Auth";
+import { db } from "../../firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 
 export const BillingInformation = () => {
   const { currentUser } = useAuth();
@@ -27,7 +29,7 @@ export const BillingInformation = () => {
     setMessage("");
 
     const orderDetails = {
-
+      userId: currentUser.uid,
       firstName,
       lastName,
       companyName,
@@ -39,10 +41,12 @@ export const BillingInformation = () => {
       paymentMethod,
       items,
       total,
+      date: new Date().toISOString(),
+      status: "Processing",
     };
 
     try {
-      console.log("Order Details:", orderDetails);
+      const docRef = await addDoc(collection(db, "orders"), orderDetails);
       setMessage("Order placed successfully!");
     } catch (err) {
       setMessage("Failed to place the order. Please try again.");

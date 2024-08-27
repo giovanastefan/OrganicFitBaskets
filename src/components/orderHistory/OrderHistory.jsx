@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 import "./OrderHistory.css";
 import { OrderRow } from "./subComponents/OrderRow";
+import { useAuth } from "../../context/auth/Auth";
 
 export const OrderHistory = () => {
-  const [orders, setOrders] = useState([
-    {
-        id: 1,
-        date: new Date(),
-        totalPrice: 294.50,
-        qtyProducts: 3,
-        status: 'Processing'
+  const { currentUser } = useAuth();
+  const [orders, setOrders] = useState([]);
 
-    }
-  ]);
+  useEffect(() => {
+    const fetchOrders = async () => {
+        if(currentUser) {
+          const q = query(collection(db, "orders"),
+          where("userId", "==", currentUser.uid)
+        );
+
+        const querySnapshot = await getDocs(q);
+        const fetchedOrders = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setOrders(fetchedOrders);
+        }
+    };
+    fetchOrders();
+  }, [currentUser]);
 
   const renderOrders = () => {
     if (orders.length > 0) {
