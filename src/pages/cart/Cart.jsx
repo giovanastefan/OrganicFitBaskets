@@ -8,32 +8,20 @@ import { useInfo } from "../../hooks/useInfo/useInfo";
 
 export const Cart = () => {
   const navigate = useNavigate();
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      name: "Green Capsicum",
-      imageUrl:
-        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
-      price: 2.99,
-      quantity: 10,
-    },
-    {
-      id: 2,
-      name: "Green Capsicum",
-      imageUrl:
-        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
-      price: 2.99,
-      quantity: 10,
-    },
-    {
-      id: 3,
-      name: "Green Capsicum",
-      imageUrl:
-        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
-      price: 5.99,
-      quantity: 2,
-    },
-  ]);
+  const { cartItems } = useCart();
+  const [items, setItems] = useState([]);
+  const {
+    fetchProducts,
+    items: cartProducts,
+    message,
+    calculateTotal,
+    calculateSubTotal,
+  } = useInfo();
+
+  useEffect(() => {
+    fetchProducts(cartItems);
+    setItems(cartProducts);
+  }, [cartItems, fetchProducts, cartProducts]);
 
   const handleQuantityChange = (id, newQuantity) => {
     setItems((prevItems) =>
