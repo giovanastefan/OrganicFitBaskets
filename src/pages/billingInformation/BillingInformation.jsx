@@ -26,7 +26,9 @@ export const BillingInformation = () => {
   const { fetchProducts, items, calculateTotal } = useInfo(); 
 
   useEffect(() => {
-    fetchProducts(cartItems);
+    if (orderProducts.length === 0 && cartItems.length > 0) {
+      fetchProducts(cartItems);
+    }
     setOrderProducts(items);
   }, [cartItems, setOrderProducts, fetchProducts, items])
 
@@ -186,13 +188,16 @@ export const BillingInformation = () => {
       <div className="order-summary">
         <h3>Order Summary</h3>
         <div className="order-items">
-          <p>Green Capsicum x5 <span>$70.00</span></p>
-          <p>Red Capsicum x1 <span>$14.00</span></p>
+        {items.map((item, index) => (
+            <p key={index}>
+              <img src={item.imageUrl} width="30px" height="30px" /> {item.name} x{item.quantity} <span>${(item.total * item.quantity).toFixed(2)}</span>
+            </p>
+          ))}
         </div>
         <div className="order-totals">
-          <p>Subtotal: <span>$84.00</span></p>
-          <p>Shipping: <span>Free</span></p>
-          <p><strong>Total: <span>$84.00</span></strong></p>
+          <p className="subtotal">Subtotal: <span>${calculateTotal(items)}</span></p>
+          <p className="shipping">Shipping: <span>Free</span></p>
+          <p><strong>Total: <span>${calculateTotal(items)}</span></strong></p>
         </div>
         <div className="payment-methods">
           <h3>Payment Method</h3>
@@ -227,7 +232,7 @@ export const BillingInformation = () => {
             Amazon Pay
           </label>
         </div>
-        <Button onSubmit={handleCheckout}>
+        <Button onClick={handleCheckout}>
           Place Order
         </Button>
       </div>

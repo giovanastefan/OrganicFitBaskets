@@ -19,7 +19,9 @@ export const Cart = () => {
   } = useInfo();
 
   useEffect(() => {
-    fetchProducts(cartItems);
+    if (cartProducts.length === 0 && cartItems.length > 0) {
+      fetchProducts(cartItems);
+    }
     setItems(cartProducts);
   }, [cartItems, fetchProducts, cartProducts]);
 
