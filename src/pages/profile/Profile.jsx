@@ -5,11 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConfig";
 import "./Profile.css";
 import { useEffect, useState } from "react";
-import { sendEmailVerification, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { useAuth } from "../../context/auth/Auth";
 import { db } from "../../firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { updateEmail } from "firebase/auth";
 
 export const Profile = () => {
   const navigate = useNavigate();

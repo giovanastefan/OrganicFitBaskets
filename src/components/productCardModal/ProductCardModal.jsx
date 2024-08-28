@@ -1,19 +1,21 @@
+import { useState } from "react";
+import { useCart } from "../../context/Cart/Cart";
 import { useInfo } from "../../hooks/useInfo/useInfo";
 import { Button } from "../button/Button";
 import { Quantity } from "../quantity/Quantity";
 import "./ProductCardModal.css";
-import { useState } from "react";
 
 const ProductCardModal = ({ product, show, onClose }) => {
   const [productQuantity, setProductQuantity] = useState(0);
   const { getCategoryName } = useInfo();
+  const { addToCart } = useCart();
 
   if (!show || !product) {
     return null;
   }
 
   const {
-    // id,
+    id,
     name,
     description,
     imageUrl,
@@ -24,6 +26,11 @@ const ProductCardModal = ({ product, show, onClose }) => {
 
   const handleQuantityChange = (quantity) => {
     setProductQuantity(quantity);
+  };
+
+  const handleAddToCart = () => {
+    addToCart(id);
+    onClose();
   };
 
   return (
@@ -57,7 +64,7 @@ const ProductCardModal = ({ product, show, onClose }) => {
               quantity={productQuantity}
               onQuantityChange={handleQuantityChange}
             />
-            <Button className="cart-button">
+            <Button className="cart-button" onClick={handleAddToCart}>
               Add to Cart <img src="images/Rectangle.png" alt="Rectangle" />
             </Button>
           </div>

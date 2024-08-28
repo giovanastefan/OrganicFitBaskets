@@ -17,6 +17,7 @@ import "./firebaseConfig";
 import "./App.css";
 
 import { useAuth } from "./context/auth/Auth";
+import { CartProvider } from "./context/Cart/Cart";
 import { Profile } from "./pages/profile/Profile";
 import { CreateProduct } from "./pages/createProduct/CreateProduct";
 import { BillingInformation } from "./pages/billingInformation/BillingInformation";
@@ -25,13 +26,16 @@ import { AboutUs } from "./pages/aboutUs/AboutUs";
 const PrivateRoute = ({ children }) => {
   const { currentUser } = useAuth();
 
-  return currentUser ? children : <Navigate to="/login" />;
+  return currentUser ? children : (
+    <Navigate to="/login" />
+  );
 };
 
 function App() {
   return (
     <Router>
       <Menu />
+      <CartProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -70,14 +74,15 @@ function App() {
           }
         />
         <Route
-        path="/billing-information"
-        element={
-          <PrivateRoute>
-            <BillingInformation />
-          </PrivateRoute>
+          path="/billing-information"
+          element={
+            <PrivateRoute>
+              <BillingInformation />
+            </PrivateRoute>
           }
-        />        
+        />
       </Routes>
+      </CartProvider>
       <Footer />
     </Router>
   );
