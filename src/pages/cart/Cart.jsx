@@ -1,37 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useCart } from "../../context/Cart/Cart";
 import { Button } from "../../components/button/Button";
 import { Quantity } from "../../components/quantity/Quantity";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
+import { useInfo } from "../../hooks/useInfo/useInfo";
 
 export const Cart = () => {
   const navigate = useNavigate();
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      name: "Green Capsicum",
-      imageUrl:
-        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
-      price: 2.99,
-      quantity: 10,
-    },
-    {
-      id: 2,
-      name: "Green Capsicum",
-      imageUrl:
-        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
-      price: 2.99,
-      quantity: 10,
-    },
-    {
-      id: 3,
-      name: "Green Capsicum",
-      imageUrl:
-        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
-      price: 5.99,
-      quantity: 2,
-    },
-  ]);
+  const { cartItems } = useCart();
+  const [items, setItems] = useState([]);
+  const {
+    fetchProducts,
+    items: cartProducts,
+    message,
+    calculateTotal,
+    calculateSubTotal,
+  } = useInfo();
+
+  useEffect(() => {
+    fetchProducts(cartItems);
+    setItems(cartProducts);
+  }, [cartItems, fetchProducts, cartProducts]);
 
   const handleQuantityChange = (id, newQuantity) => {
     setItems((prevItems) =>
@@ -41,14 +31,6 @@ export const Cart = () => {
     );
   };
 
-  const calculateTotal = () => {
-    return items
-      .reduce((total, item) => total + item.price * item.quantity, 0)
-      .toFixed(2);
-  };
-
-  const total = calculateTotal();
-
   const renderItems = () => {
     return items.map((item) => (
       <tr key={item.id}>
@@ -56,7 +38,7 @@ export const Cart = () => {
           <img src={item.imageUrl} alt={item.name} />
           {item.name}
         </td>
-        <td data-label="Price">${item.price.toFixed(2)}</td>
+        <td data-label="Price">${item.originalPrice.toFixed(2)}</td>
         <td data-label="Quantity">
           <Quantity
             quantity={item.quantity}
@@ -65,9 +47,7 @@ export const Cart = () => {
             }
           />
         </td>
-        <td data-label="Subtotal">
-          ${(item.price * item.quantity).toFixed(2)}
-        </td>
+        <td data-label="Subtotal">{calculateSubTotal(item).toFixed(2)}</td>
       </tr>
     ));
   };
@@ -75,6 +55,7 @@ export const Cart = () => {
   return (
     <div className="container">
       <h2 className="center">My Shopping Cart</h2>
+      {message && <p className="error-message">{message}</p>}
       <div className="cart-page-container center">
         <div className="cart-details container-border">
           <table className="cart-table">
@@ -89,14 +70,16 @@ export const Cart = () => {
             <tbody>{renderItems()}</tbody>
           </table>
           <div className="cart-details-footer">
-            <Button onClickButton={() => navigate("/shop")}>Return to shop</Button>
+            <Button onClickButton={() => navigate("/shop")}>
+              Return to shop
+            </Button>
           </div>
         </div>
         <div className="cart-total container-border">
           <h2>Cart Total</h2>
           <div className="total-item">
             <span>Subtotal:</span>
-            <span>${calculateTotal()}</span>
+            <span>${calculateTotal(items)}</span>
           </div>
           <div className="total-item">
             <span>Shipping:</span>
@@ -104,9 +87,9 @@ export const Cart = () => {
           </div>
           <div className="total-item">
             <span>Total:</span>
-            <span>${calculateTotal()}</span>
+            <span>${calculateTotal(items)}</span>
           </div>
-          <Button onClickButton={() => navigate("/billing-information", { state: { items, total } })}>
+          <Button onClickButton={() => navigate("/billing-information")}>
             Proceed to checkout
           </Button>
         </div>

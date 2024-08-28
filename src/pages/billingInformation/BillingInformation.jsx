@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../components/button/Button";
-import { Input } from "../../components/input/Input";
 import "./BillingInformation.css";
-import { Cart } from "../cart/Cart.jsx";
-import { useLocation } from "react-router-dom";
 import { useAuth } from "../../context/auth/Auth";
+import { useCart } from "../../context/Cart/Cart"; 
 import { db } from "../../firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
+import { useInfo } from "../../hooks/useInfo/useInfo";
 
 export const BillingInformation = () => {
   const { currentUser } = useAuth();
-  const location = useLocation();
-  const items = location.state?.items || [];
-  const total = location.state?.total || "0.00";
+  const { cartItems } = useCart();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -24,6 +21,16 @@ export const BillingInformation = () => {
   const [phone, setPhone] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [message, setMessage] = useState("");
+  const [orderProducts, setOrderProducts] = useState([]);
+
+  const { fetchProducts, items, calculateTotal } = useInfo(); 
+
+  useEffect(() => {
+    fetchProducts(cartItems);
+    setOrderProducts(items);
+  }, [cartItems, setOrderProducts, fetchProducts, items])
+
+  console.log("TESTE", cartItems)
 
   const handleCheckout = async () => {
     setMessage("");
@@ -39,8 +46,8 @@ export const BillingInformation = () => {
       email,
       phone,
       paymentMethod,
-      items,
-      total,
+      items: cartItems, // Usando os itens do contexto
+      total: 10,
       date: new Date().toISOString(),
       status: "Processing",
     };
@@ -173,13 +180,15 @@ export const BillingInformation = () => {
       <div className="order-summary">
         <h3>Order Summary</h3>
         <div className="order-items">
-          <p>Green Capsicum x5 <span>$70.00</span></p>
-          <p>Red Capsicum x1 <span>$14.00</span></p>
+          {orderProducts.map((item) => (
+            <p key={item.id}>
+              {item.name} x{item.quantity} <span>${(item.originalPrice * item.quantity).toFixed(2)}</span>
+            </p>
+          ))}
         </div>
         <div className="order-totals">
-          <p>Subtotal: <span>$84.00</span></p>
           <p>Shipping: <span>Free</span></p>
-          <p><strong>Total: <span>$84.00</span></strong></p>
+          <p><strong>Total: <span>${calculateTotal(orderProducts)}</span></strong></p>
         </div>
         <div className="payment-methods">
           <h3>Payment Method</h3>
