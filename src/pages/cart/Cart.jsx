@@ -17,19 +17,19 @@ export const Cart = () => {
     },
     {
       id: 2,
-      name: "Green Capsicum",
+      name: "Red Apple",
       imageUrl:
-        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
-      price: 2.99,
-      quantity: 10,
+        "https://acdn.mitiendanube.com/stores/174/441/products/maca-vermelha-italiana-d9cb5f3f39fd29943115122899225013-240-0.jpg",
+      price: 3.99,
+      quantity: 5,
     },
     {
       id: 3,
-      name: "Green Capsicum",
+      name: "Butter",
       imageUrl:
-        "https://cdn.awsli.com.br/600x450/1304/1304130/produto/50538831/0792430fe7.jpg",
-      price: 5.99,
-      quantity: 2,
+        "https://conteudo.imguol.com.br/c/entretenimento/16/2018/05/30/manteiga-1527708112983_v2_4x3.jpg",
+      price: 10.39,
+      quantity: 1,
     },
   ]);
 

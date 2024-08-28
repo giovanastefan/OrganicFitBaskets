@@ -25,7 +25,8 @@ export const BillingInformation = () => {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [message, setMessage] = useState("");
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (e) => {
+
     setMessage("");
 
     const orderDetails = {
@@ -54,7 +55,7 @@ export const BillingInformation = () => {
   };
 
   return (
-    <div className="checkout-container">
+    <form><div className="checkout-container">
       <div className="billing-section">
         {message && (
           <div className="message">
@@ -72,6 +73,8 @@ export const BillingInformation = () => {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="form-input"
+                required 
+                title="Please enter your first name"
               />
             </div>
             <div className="form" id="last-name">
@@ -82,6 +85,8 @@ export const BillingInformation = () => {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 className="form-input"
+                required
+
               />
             </div>
             <div className="form" id="company-name">
@@ -126,6 +131,7 @@ export const BillingInformation = () => {
                   value={state}
                   onChange={(e) => setState(e.target.value)}
                   className="form-input select-input"
+                  
                 >
                   <option value="">Select State</option>
                   {/* Add more options as needed */}
@@ -157,7 +163,7 @@ export const BillingInformation = () => {
           </div>
           <div class="ship-checkbox">
             <input type="checkbox" id="ship-different" />
-            <label for="ship-different">Ship to a different Address</label>
+            <label htmlFor="ship-different">Ship to a different Address</label>
           </div>
           <h3>Additional Info</h3>
           <div className="aditional-info">
@@ -173,13 +179,16 @@ export const BillingInformation = () => {
       <div className="order-summary">
         <h3>Order Summary</h3>
         <div className="order-items">
-          <p>Green Capsicum x5 <span>$70.00</span></p>
-          <p>Red Capsicum x1 <span>$14.00</span></p>
+          {items.map((item, index) => (
+            <p key={index}>
+              <img src={item.imageUrl} width="30px" height="30px" /> {item.name} x{item.quantity} <span>${(item.price * item.quantity).toFixed(2)}</span>
+            </p>
+          ))}
         </div>
         <div className="order-totals">
-          <p>Subtotal: <span>$84.00</span></p>
-          <p>Shipping: <span>Free</span></p>
-          <p><strong>Total: <span>$84.00</span></strong></p>
+          <p className="subtotal">Subtotal: <span>${total}</span></p>
+          <p className="shipping">Shipping: <span>Free</span></p>
+          <p><strong>Total: <span>${total}</span></strong></p>
         </div>
         <div className="payment-methods">
           <h3>Payment Method</h3>
@@ -214,10 +223,11 @@ export const BillingInformation = () => {
             Amazon Pay
           </label>
         </div>
-        <Button onClickButton={handleCheckout}>
+        <Button onSubmit={handleCheckout}>
           Place Order
         </Button>
       </div>
     </div>
+    </form>
   );
 };

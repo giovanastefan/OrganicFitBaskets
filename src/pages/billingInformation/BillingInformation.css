@@ -106,6 +106,22 @@
     text-decoration: underline;
 }
 
+.order-totals{
+    margin-top: 10px;
+}
+
+.order-summary {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.subtotal, .shipping {
+    border-bottom: 1px solid #808080;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
 @media (max-width: 768px) {
     .checkout-container {
         flex-direction: column;
