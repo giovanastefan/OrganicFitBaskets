@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "cestasorganicfit"
-  }
+    "default": "organicfitcestas-30b58",
+    "organic-fit-correct": "organicfitcestas-30b58"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

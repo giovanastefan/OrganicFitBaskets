@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBjOv_VVKNgyLOORgSMRhUDPXsSIO4OcFQ",
-  authDomain: "cestasorganicfit.firebaseapp.com",
-  projectId: "cestasorganicfit",
-  storageBucket: "cestasorganicfit.appspot.com",
-  messagingSenderId: "284682722433",
-  appId: "1:284682722433:web:3e15ed22194241803b0180"
+  apiKey: "AIzaSyCd4_9e9hokQzglZxGLrLXZeSMkBd2pZtY",
+  authDomain: "organicfitcestas-30b58.firebaseapp.com",
+  projectId: "organicfitcestas-30b58",
+  storageBucket: "organicfitcestas-30b58.appspot.com",
+  messagingSenderId: "667649906113",
+  appId: "1:667649906113:web:8b63831534a258cf258b40"
 };
 
 const app = initializeApp(firebaseConfig);
