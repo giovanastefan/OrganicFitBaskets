@@ -39,7 +39,6 @@ export const Menu = () => {
           />
           <div className="cart-details">
             <span>Shopping Cart</span>
-            <span>$57.00</span>
           </div>
           
           {renderProfile()}

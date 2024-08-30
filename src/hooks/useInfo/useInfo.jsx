@@ -4,8 +4,10 @@ import { collection, getDocs } from "firebase/firestore";
 
 export const useInfo = () => {
   const [message, setMessage] = useState("");
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
 
   const fetchCategories = async () => {
     try {
@@ -29,10 +31,10 @@ export const useInfo = () => {
       }));
 
       const updatedItems = itemsId.map((itemId) => {
-        const product = productsList.find((product) => product.id === itemId);
+        const product = productsList.find((product) => product.id === itemId.productId);
         return {
           ...product,
-          quantity: 1,
+          quantity: itemId.quantity,
         };
       });
 
@@ -42,10 +44,39 @@ export const useInfo = () => {
     }
   };
 
+  const fetchStates = async () => {
+    await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+      .then((response) => response.json())
+      .then((json) => {
+        setStates(
+          json.map((item) => {
+            return {
+              label: item.nome,
+              value: item.sigla,
+            };
+          })
+        );
+      });
+  };
+
+  const fetchCities = async (selectedState) => {
+    await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState.toLowerCase()}/municipios`)
+      .then((response) => response.json())
+      .then((json) => {
+        setCities(
+          json.map((item) => {
+            return {
+              label: item.nome,
+              value: item.sigla,
+            };
+          })
+        );
+      });
+  };
+
   useEffect(() => {
     fetchCategories();
   }, []);
-
 
   const calculateSubTotal = (item) => {
     return (item.promotionalPrice || item.originalPrice) * item.quantity;
@@ -53,7 +84,11 @@ export const useInfo = () => {
 
   const calculateTotal = (items) => {
     return items
-      .reduce((total, item) => total + item.originalPrice * item.quantity, 0)
+      .reduce(
+        (total, item) =>
+          total + (item.promotionalPrice || item.originalPrice) * item.quantity,
+        0
+      )
       .toFixed(2);
   };
 
@@ -69,6 +104,10 @@ export const useInfo = () => {
     fetchProducts,
     items,
     calculateSubTotal,
-    calculateTotal
+    calculateTotal,
+    cities,
+    states,
+    fetchStates,
+    fetchCities
   };
 };

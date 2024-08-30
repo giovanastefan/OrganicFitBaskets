@@ -6,7 +6,7 @@ import { Quantity } from "../quantity/Quantity";
 import "./ProductCardModal.css";
 
 const ProductCardModal = ({ product, show, onClose }) => {
-  const [productQuantity, setProductQuantity] = useState(0);
+  const [productQuantity, setProductQuantity] = useState(1);
   const { getCategoryName } = useInfo();
   const { addToCart } = useCart();
 
@@ -24,19 +24,24 @@ const ProductCardModal = ({ product, show, onClose }) => {
     category,
   } = product;
 
+  const handleCloseModal = () => {
+    setProductQuantity(1);
+    onClose()
+  }
+
   const handleQuantityChange = (quantity) => {
     setProductQuantity(quantity);
   };
 
   const handleAddToCart = () => {
-    addToCart(id);
-    onClose();
+    addToCart({ productId: id, quantity: productQuantity });
+    handleCloseModal();
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <span className="close-button" onClick={onClose}>
+        <span className="close-button" onClick={handleCloseModal}>
           &times;
         </span>
         <img

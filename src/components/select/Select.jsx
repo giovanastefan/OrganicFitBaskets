@@ -3,7 +3,7 @@ import "./Select.css";
 export const Select = ({ id, label, options, value, onChange, placeholder, ...props }) => {
   return (
     <div className="select-container">
-      {label && <label htmlFor={id}>{label}</label>}
+      {label && <p>{label}</p>}
       <select id={id} value={value} onChange={onChange} {...props}>
         <option value="" disabled>
           {placeholder}

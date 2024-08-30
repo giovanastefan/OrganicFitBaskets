@@ -1,7 +1,7 @@
 import './OrderRow.css';
 
 export const OrderRow = ({ order }) => {
-  const { id, date, totalPrice, items, status } = order;
+  const { id, date, total, items, status } = order;
 
   const qtyProducts = items.reduce((sum, item) => sum + item.quantity, 0)
   const orderDate = date instanceof Date ? date: new Date(date);
@@ -12,8 +12,8 @@ export const OrderRow = ({ order }) => {
     year: 'numeric',
   });
 
-  const formattedTotalPrice = totalPrice 
-  ? Number(totalPrice).toFixed(2) 
+  const formattedTotalPrice = total 
+  ? Number(total).toFixed(2) 
   : "0.00";
 
   return (
